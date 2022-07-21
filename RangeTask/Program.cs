@@ -25,7 +25,7 @@ Console.WriteLine();
 Console.WriteLine("Пересечение интервалов.");
 Console.WriteLine();
 
-if (intervalsIntersection == null)
+if (intervalsIntersection is null)
 {
     Console.WriteLine("null");
 }
@@ -41,7 +41,7 @@ Console.WriteLine();
 Console.WriteLine("Обьединение интервалов.");
 Console.WriteLine();
 
-if (intervalsJoining == null)
+if (intervalsJoining is null)
 {
     Console.WriteLine("null");
 }
@@ -66,7 +66,7 @@ Console.WriteLine();
 Console.WriteLine("Разность интервалов.");
 Console.WriteLine();
 
-if (intervalsDifference == null)
+if (intervalsDifference is null)
 {
     Console.WriteLine("null");
 }
