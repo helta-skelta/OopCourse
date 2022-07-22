@@ -66,18 +66,14 @@ namespace RangeTask
         {
             if (interval1.To > interval2.From && interval1.From <= interval2.From)
             {
-                Range newInterval = new(interval1.From, interval2.To);
-
-                Range[] result = { newInterval };
+                Range[] result = { new(interval1.From, interval2.To) };
 
                 return result;
             }
 
             if (interval2.To > interval1.From && interval2.From <= interval1.From)
             {
-                Range newInterval = new(interval2.From, interval1.To);
-
-                Range[] result = { newInterval };
+                Range[] result = { new(interval2.From, interval1.To) };
 
                 return result;
             }
@@ -91,45 +87,33 @@ namespace RangeTask
         {
             if (interval1.From > interval2.From && interval1.To < interval2.To)
             {
-                Range newInterval1 = new(interval2.From, interval1.From);
-                Range newInterval2 = new(interval1.To, interval2.To);
-
-                Range[] result = { newInterval1, newInterval2 };
+                Range[] result = { new(interval2.From, interval1.From), new(interval1.To, interval2.To) };
 
                 return result;
             }
 
             if (interval2.From > interval1.From && interval2.To < interval1.To)
             {
-                Range newInterval1 = new(interval1.From, interval2.From);
-                Range newInterval2 = new(interval2.To, interval1.To);
-
-                Range[] result = { newInterval1, newInterval2 };
+                Range[] result = { new(interval1.From, interval2.From), new(interval2.To, interval1.To) };
 
                 return result;
             }
 
             if (interval1.To > interval2.From && interval1.From <= interval2.From)
             {
-                Range newInterval = new(interval1.From, interval2.From);
-
-                Range[] result = { newInterval };
+                Range[] result = { new(interval1.From, interval2.From) };
 
                 return result;
             }
 
             if (interval2.To > interval1.From && interval2.From <= interval1.To)
             {
-                Range newInterval = new(interval2.To, interval1.To);
-
-                Range[] result = { newInterval };
+                Range[] result = { new(interval2.To, interval1.To) };
 
                 return result;
             }
 
-            Range _newInterval = new(0, 0);
-
-            Range[] _result = { _newInterval };
+            Range[] _result = { new(0, 0) };
 
             return _result;
         }

@@ -22,7 +22,7 @@ Range? intervalsIntersection = new();
 intervalsIntersection = intervalsIntersection.GetIntervalsIntersection(range1, range2);
 
 Console.WriteLine();
-Console.WriteLine("Пересечение интервалов.");
+Console.WriteLine("Пересечение интервалов:");
 Console.WriteLine();
 
 if (intervalsIntersection is null)
@@ -38,7 +38,7 @@ else
 Range[] intervalsJoining = range1.GetIntervalsJoining(range1, range2);
 
 Console.WriteLine();
-Console.WriteLine("Обьединение интервалов.");
+Console.WriteLine("Обьединение интервалов:");
 Console.WriteLine();
 
 if (intervalsJoining is null)
@@ -63,7 +63,7 @@ else
 Range[]? intervalsDifference = range1.GetIntervalsDifference(range1, range2);
 
 Console.WriteLine();
-Console.WriteLine("Разность интервалов.");
+Console.WriteLine("Разность интервалов:");
 Console.WriteLine();
 
 if (intervalsDifference is null)
