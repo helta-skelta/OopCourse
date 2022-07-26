@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RangeTask
+﻿namespace RangeTask
 {
     class Range
     {
@@ -14,11 +12,6 @@ namespace RangeTask
             To = to;
         }
 
-        public Range()
-        {
-
-        }
-
         public double GetLength()
         {
             return To - From;
@@ -29,93 +22,60 @@ namespace RangeTask
             return number >= From && number <= To;
         }
 
-        public Range? GetIntervalsIntersection(Range interval1, Range interval2)
+        public Range? GetIntersection(Range range)
         {
-            if (interval1.From >= interval2.From && interval1.To <= interval2.To)
+            if (To <= range.From || range.To <= From)
             {
-                Range result = new(interval1.From, interval1.To);
-
-                return result;
+                return null;
             }
 
-            if (interval2.From >= interval1.From && interval2.To <= interval1.To)
-            {
-                Range result = new(interval2.From, interval2.To);
+            double maxFrom = Math.Max(From, range.From);
+            double minTo = Math.Min(To, range.To);
 
-                return result;
-            }
-
-            if (interval1.To > interval2.From && interval1.From <= interval2.From)
-            {
-                Range result = new(interval2.From, interval1.To);
-
-                return result;
-            }
-
-            if (interval1.To >= interval2.To && interval1.From < interval2.To)
-            {
-                Range result = new(interval1.From, interval2.To);
-
-                return result;
-            }
-
-            return null;
+            return new Range(maxFrom, minTo);
         }
 
-        public Range[] GetIntervalsJoining(Range interval1, Range interval2)
+        public Range[] GetUnion(Range range)
         {
-            if (interval1.To > interval2.From && interval1.From <= interval2.From)
+            if (To < range.From || range.To < From)
             {
-                Range[] result = { new(interval1.From, interval2.To) };
-
-                return result;
+                return new Range[] { this, range };
             }
 
-            if (interval2.To > interval1.From && interval2.From <= interval1.From)
-            {
-                Range[] result = { new(interval2.From, interval1.To) };
+            double minFrom = Math.Min(From, range.From);
+            double maxTo = Math.Max(To, range.To);
 
-                return result;
-            }
-
-            Range[] _result = { interval1, interval2 };
-
-            return _result;
+            return new Range[] { new Range(minFrom, maxTo) };
         }
 
-        public Range[]? GetIntervalsDifference(Range interval1, Range interval2)
+        public Range[] GetDifference(Range range)
         {
-            if (interval1.From > interval2.From && interval1.To < interval2.To)
+            if (range.From < To && range.To >= To)
             {
-                Range[] result = { new(interval2.From, interval1.From), new(interval1.To, interval2.To) };
-
-                return result;
+                return new Range[] { new Range(From, range.From) };
             }
 
-            if (interval2.From > interval1.From && interval2.To < interval1.To)
+            if (range.To > From && range.From <= From)
             {
-                Range[] result = { new(interval1.From, interval2.From), new(interval2.To, interval1.To) };
-
-                return result;
+                return new Range[] { new Range(range.To, To) };
             }
 
-            if (interval1.To > interval2.From && interval1.From <= interval2.From)
+            if (range.To <= From || range.From >= To)
             {
-                Range[] result = { new(interval1.From, interval2.From) };
-
-                return result;
+                return new Range[] { this };
             }
 
-            if (interval2.To > interval1.From && interval2.From <= interval1.To)
+            if (From < range.From && To > range.To)
             {
-                Range[] result = { new(interval2.To, interval1.To) };
-
-                return result;
+                return new Range[] { new Range(From, range.From), new Range(range.To, To) };
             }
 
-            Range[] _result = { new(0, 0) };
+            return Array.Empty<Range>();
+        }
 
-            return _result;
+        public override string ToString()
+        {
+            return $"Диапазон ({From},{To})";
         }
     }
 }

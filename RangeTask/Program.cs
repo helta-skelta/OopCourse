@@ -18,69 +18,29 @@ double to2 = Convert.ToDouble(Console.ReadLine());
 
 Range range2 = new(from2, to2);
 
-Range? intervalsIntersection = new();
-intervalsIntersection = intervalsIntersection.GetIntervalsIntersection(range1, range2);
+Console.Write("Пересечение диапазонов: ");
 
-Console.WriteLine();
-Console.WriteLine("Пересечение интервалов:");
-Console.WriteLine();
+Range? rangesIntersection = range1.GetIntersection(range2);
 
-if (intervalsIntersection is null)
+if (rangesIntersection is null)
 {
     Console.WriteLine("null");
 }
 else
 {
-    Console.WriteLine($"Длинна интервала-пересечения = {intervalsIntersection.GetLength()}.");
-    Console.WriteLine($"Начало интервала-пересечения = {intervalsIntersection.From}. Конец интервала-пересечения = {intervalsIntersection.To}.");
+    Console.WriteLine(rangesIntersection);
 }
-
-Range[] intervalsJoining = range1.GetIntervalsJoining(range1, range2);
 
 Console.WriteLine();
-Console.WriteLine("Обьединение интервалов:");
-Console.WriteLine();
+Console.Write("Обьединение диапазонов: ");
 
-if (intervalsJoining is null)
-{
-    Console.WriteLine("null");
-}
-else
-{
-    if (intervalsJoining.Length == 1)
-    {
-        Console.WriteLine($"Длинна обьединенных интервалов = {intervalsJoining[0].GetLength()}");
-        Console.WriteLine($"Начало обьединенного интервала = {intervalsJoining[0].From}. Конец обьединенного интервала = {intervalsJoining[0].To}.");
-    }
-    else
-    {
-        Console.WriteLine($"Длинна обьединенных интервалов = {intervalsJoining[0].GetLength() + intervalsJoining[1].GetLength()}.");
-        Console.WriteLine($"Начало первого интервала = {intervalsJoining[0].From}. Конец первого интервала = {intervalsJoining[0].To}.");
-        Console.WriteLine($"Начало второго интервала = {intervalsJoining[1].From}. Конец второго интервала = {intervalsJoining[1].To}.");
-    }
-}
+Range[] ranges = range1.GetUnion(range2);
 
-Range[]? intervalsDifference = range1.GetIntervalsDifference(range1, range2);
+Console.WriteLine(String.Join<Range>(" + ", (Range[])ranges));
 
 Console.WriteLine();
-Console.WriteLine("Разность интервалов:");
-Console.WriteLine();
+Console.Write("Разность диапазонов: ");
 
-if (intervalsDifference is null)
-{
-    Console.WriteLine("null");
-}
-else
-{
-    if (intervalsDifference.Length == 1)
-    {
-        Console.WriteLine($"Длинна интервала = {intervalsDifference[0].GetLength()}.");
-        Console.WriteLine($"Начало интервала = {intervalsDifference[0].From}. Конец интервала = {intervalsDifference[0].To}.");
-    }
-    else
-    {
-        Console.WriteLine($"Длинна интервала = {intervalsDifference[0].GetLength() + intervalsDifference[1].GetLength()}");
-        Console.WriteLine($"Начало первого интервала = {intervalsDifference[0].From}. Конец первого интервала = {intervalsDifference[0].To}.");
-        Console.WriteLine($"Начало второго интервала = {intervalsDifference[1].From}. Конец второго интервала = {intervalsDifference[1].To}.");
-    }
-}
+ranges = range1.GetDifference(range2);
+
+Console.WriteLine(String.Join<Range>(" + ", (Range[])ranges));
