@@ -34,7 +34,7 @@ namespace Shapes
                 return 0;
             }
 
-            return area;
+            return Math.Round(area, 2, MidpointRounding.AwayFromZero);
         }
 
         public double GetHeight()
@@ -67,6 +67,43 @@ namespace Shapes
         private static double GetSide(double x1, double y1, double x2, double y2)
         {
             return Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
+        }
+
+        public override bool Equals(object? o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+
+            if (o is null || o.GetType() != GetType())
+            {
+                return false;
+            }
+
+            Triangle other = (Triangle)o;
+
+            return X1 == other.X1 && X2 == other.X2 && X3 == other.X3 && Y1 == other.Y1 && Y2 == other.Y2 && Y3 == other.Y3;
+        }
+
+        public override int GetHashCode()
+        {
+            int prime = 22;
+            int hash = 1;
+
+            hash = (prime * hash) + X1.GetHashCode();
+            hash = (prime * hash) + X2.GetHashCode();
+            hash = (prime * hash) + X3.GetHashCode();
+            hash = (prime * hash) + Y1.GetHashCode();
+            hash = (prime * hash) + Y2.GetHashCode();
+            hash = (prime * hash) + Y3.GetHashCode();
+
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"Треугольник со сторонами \"{GetSide(X1, Y1, X2, Y2):f0}\",\"{GetSide(X2, Y2, X3, Y3):f0}\",\"{GetSide(X3, Y3, X1, Y1):f0}\".";
         }
     }
 }

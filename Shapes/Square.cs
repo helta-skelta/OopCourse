@@ -17,7 +17,7 @@ namespace Shapes
 
             set
             {
-                if (Math.Abs(width) <= IShape.EPSILON)
+                if (width <= IShape.EPSILON)
                 {
                     Console.WriteLine("Длинна стороны должна быть больше 0!");
                 }
@@ -46,6 +46,38 @@ namespace Shapes
         public double GetWidth()
         {
             return width;
+        }
+
+        public override bool Equals(object? o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+
+            if (o is null || o.GetType() != GetType())
+            {
+                return false;
+            }
+
+            Square other = (Square)o;
+
+            return width == other.width;
+        }
+
+        public override int GetHashCode()
+        {
+            int prime = 27;
+            int hash = 1;
+
+            hash = (prime * hash) + width.GetHashCode();
+
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"Квадрат со стороной {width}.";
         }
     }
 }

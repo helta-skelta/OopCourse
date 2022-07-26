@@ -36,7 +36,7 @@ namespace Shapes
 
             set
             {
-                if (Math.Abs(width) <= IShape.EPSILON)
+                if (width <= IShape.EPSILON)
                 {
                     Console.WriteLine("Длинна стороны должна быть больше 0!");
                 }
@@ -65,6 +65,39 @@ namespace Shapes
         public double GetWidth()
         {
             return width;
+        }
+
+        public override bool Equals(object? o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+
+            if (o is null || o.GetType() != GetType())
+            {
+                return false;
+            }
+
+            Rectangle other = (Rectangle)o;
+
+            return height == other.height && width == other.width;
+        }
+
+        public override int GetHashCode()
+        {
+            int prime = 25;
+            int hash = 1;
+
+            hash = (prime * hash) + height.GetHashCode();
+            hash = (prime * hash) + width.GetHashCode();
+
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"Прямоугольник со сторонами {height},{width}.";
         }
     }
 }

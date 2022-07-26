@@ -34,5 +34,37 @@ namespace Shapes
         {
             return radius * 2;
         }
+
+        public override bool Equals(object? o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+
+            if (o is null || o.GetType() != GetType())
+            {
+                return false;
+            }
+
+            Circle other = (Circle)o;
+
+            return radius == other.radius;
+        }
+
+        public override int GetHashCode()
+        {
+            int prime = 24;
+            int hash = 1;
+
+            hash = (prime * hash) + radius.GetHashCode();
+
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"Окружность с радиусом{radius}.";
+        }
     }
 }
