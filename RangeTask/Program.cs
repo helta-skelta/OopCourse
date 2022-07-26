@@ -18,8 +18,6 @@ double to2 = Convert.ToDouble(Console.ReadLine());
 
 Range range2 = new(from2, to2);
 
-Console.Write("Пересечение диапазонов: ");
-
 Range? rangesIntersection = range1.GetIntersection(range2);
 
 if (rangesIntersection is null)
@@ -28,19 +26,35 @@ if (rangesIntersection is null)
 }
 else
 {
-    Console.WriteLine(rangesIntersection);
+    Console.WriteLine("Пересечение диапазонов: " + rangesIntersection);
 }
 
 Console.WriteLine();
-Console.Write("Обьединение диапазонов: ");
 
 Range[] ranges = range1.GetUnion(range2);
 
-Console.WriteLine(String.Join<Range>(" + ", (Range[])ranges));
+if (ranges.Length == 0)
+{
+    Console.WriteLine(0);
+}
+else
+{
+    Console.Write("Обьединение диапазонов: [");
+    Console.Write(String.Join<Range>(", ", (Range[])ranges));
+    Console.WriteLine("]");
+}
 
 Console.WriteLine();
-Console.Write("Разность диапазонов: ");
 
 ranges = range1.GetDifference(range2);
 
-Console.WriteLine(String.Join<Range>(" + ", (Range[])ranges));
+if (ranges.Length == 0)
+{
+    Console.WriteLine(0);
+}
+else
+{
+    Console.Write("Разность диапазонов: [");
+    Console.Write(String.Join<Range>(", ", (Range[])ranges));
+    Console.WriteLine("]");
+}

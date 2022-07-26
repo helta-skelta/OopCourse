@@ -50,32 +50,34 @@
 
         public Range[] GetDifference(Range range)
         {
-            if (range.From < To && range.To >= To)
-            {
-                return new Range[] { new Range(From, range.From) };
-            }
+            Range? x = this.GetIntersection(range);
 
-            if (range.To > From && range.From <= From)
-            {
-                return new Range[] { new Range(range.To, To) };
-            }
-
-            if (range.To <= From || range.From >= To)
+            if (x is null)
             {
                 return new Range[] { this };
             }
 
-            if (From < range.From && To > range.To)
+            if (From < x.From && To <= range.To)
             {
-                return new Range[] { new Range(From, range.From), new Range(range.To, To) };
+                return new Range[] { new Range(From, x.From) };
             }
 
-            return Array.Empty<Range>();
+            if (To > x.To && From >= range.From)
+            {
+                return new Range[] { new Range(x.To, To) };
+            }
+
+            if (range.From <= From && range.To >= To)
+            {
+                return Array.Empty<Range>();
+            }
+
+            return new Range[] { new Range(From, x.From), new Range(x.To, To) };
         }
 
         public override string ToString()
         {
-            return $"Диапазон ({From},{To})";
+            return $"({From},{To})";
         }
     }
 }
