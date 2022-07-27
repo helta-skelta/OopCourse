@@ -50,29 +50,27 @@
 
         public Range[] GetDifference(Range range)
         {
-            Range? x = this.GetIntersection(range);
-
-            if (x is null)
+            if (To <= range.From || From >= range.To)
             {
                 return new Range[] { this };
             }
 
-            if (From < x.From && To <= x.To)
-            {
-                return new Range[] { new Range(From, x.From) };
-            }
-
-            if (To > x.To && From >= x.From)
-            {
-                return new Range[] { new Range(x.To, To) };
-            }
-
-            if (x.From <= From && x.To >= To)
+            if (From >= range.From && To <= range.To)
             {
                 return Array.Empty<Range>();
             }
 
-            return new Range[] { new Range(From, x.From), new Range(x.To, To) };
+            if (From <= range.From && To >= range.To)
+            {
+                return new Range[] { new Range(From, range.From), new Range(range.To, To) };
+            }
+
+            if (To <= range.To && From < range.From)
+            {
+                return new Range[] { new Range(From, range.From) };
+            }
+
+            return new Range[] { new Range(range.To, To) };
         }
 
         public override string ToString()

@@ -50,7 +50,7 @@ ranges = range1.GetDifference(range2);
 
 if (ranges.Length == 0)
 {
-    Console.WriteLine(0);
+    Console.WriteLine("Разность диапазонов: 0");
 }
 else
 {
