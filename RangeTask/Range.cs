@@ -57,17 +57,17 @@
                 return new Range[] { this };
             }
 
-            if (From < x.From && To <= range.To)
+            if (From < x.From && To <= x.To)
             {
                 return new Range[] { new Range(From, x.From) };
             }
 
-            if (To > x.To && From >= range.From)
+            if (To > x.To && From >= x.From)
             {
                 return new Range[] { new Range(x.To, To) };
             }
 
-            if (range.From <= From && range.To >= To)
+            if (x.From <= From && x.To >= To)
             {
                 return Array.Empty<Range>();
             }
