@@ -1,14 +1,18 @@
 ﻿using System;
 
-namespace Shapes
+namespace ShapesTask
 {
     internal class Circle : IShape
     {
         private double radius;
+
+        private const double epsilon = 1.0e-10;
+        private const int prime = 23;
+
         public double Radius
         {
             get => radius;
-            set => radius = (radius <= IShape.EPSILON) ? value : 0;
+            set => radius = (radius <= epsilon) ? value : 0;
         }
 
         public Circle(double radius)
@@ -17,7 +21,7 @@ namespace Shapes
         }
         public double GetArea()
         {
-            return Math.PI * Math.Pow(radius, 2);
+            return Math.PI * (radius * radius);
         }
 
         public double GetHeight()
@@ -27,7 +31,7 @@ namespace Shapes
 
         public double GetPerimeter()
         {
-            return Math.PI * (radius * 2);
+            return Math.PI * radius * 2;
         }
 
         public double GetWidth()
@@ -47,24 +51,23 @@ namespace Shapes
                 return false;
             }
 
-            Circle other = (Circle)o;
+            Circle circle = (Circle)o;
 
-            return radius == other.radius;
+            return radius == circle.radius;
         }
 
         public override int GetHashCode()
         {
-            int prime = 24;
             int hash = 1;
 
-            hash = (prime * hash) + radius.GetHashCode();
+            hash = prime * hash + radius.GetHashCode();
 
             return hash;
         }
 
         public override string ToString()
         {
-            return $"Окружность с радиусом{radius}.";
+            return $"Окружность с радиусом {radius}.";
         }
     }
 }

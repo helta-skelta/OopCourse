@@ -1,51 +1,38 @@
-﻿using Shapes;
+﻿using ShapesTask;
 
-Triangle a = new(50.0, 9.0, 3.0, 2.0, 90.0, 3.0);
-double s = a.GetArea();
-
-Console.WriteLine(s);
-
-IShape[] shapes = { new Triangle(50.0, 9.0, 3.0, 2.0, 90.0, 3.0), new Rectangle(3.0, 6.0), new Square(8), new Circle(5), new Circle(6), new Rectangle(1.0, 8.0) };
-
-static void MaxShapeArea(IShape[] shapes)
+IShape[] shapes =
 {
-    Array.Sort(shapes, new ShapesComparer());
+    new Triangle(50.0, 9.0, 3.0, 2.0, 90.0, 3.0),
+    new Rectangle(3.0, 6.0),
+    new Square(8),
+    new Circle(5),
+    new Circle(6),
+    new Rectangle(1.0, 8.0)
+};
 
-    Console.WriteLine($"Фигура с максимальной площадью = {shapes[^1]}");
-    Console.WriteLine($"Площадь фигуры = {shapes[^1].GetArea():f2}");
+static IShape MaxShapeArea(IShape[] shapes)
+{
+    if (shapes is null || shapes.Length == 0)
+    {
+        throw new ArgumentException("Массив фигур пустой или равен null");
+    }
 
-    if (shapes[^1] is Circle)
-    {
-        Console.WriteLine($"Длинна окружности фигуры = {shapes[^1].GetPerimeter():f2}");
-        Console.WriteLine($"Диаметр фигуры = {shapes[^1].GetHeight()}");
-    }
-    else
-    {
-        Console.WriteLine($"Периметр фигуры = {shapes[^1].GetPerimeter():f2}");
-        Console.WriteLine($"Высота фигуры = {shapes[^1].GetHeight()}");
-        Console.WriteLine($"Ширина фигуры = {shapes[^1].GetWidth()}");
-    }
+    Array.Sort(shapes, new AreaComparer());
+
+    return shapes[^1];
 }
 
-static void SecondSizeShapePerimeter(IShape[] shapes)
+static IShape SecondSizeShapePerimeter(IShape[] shapes)
 {
-    Array.Sort(shapes, new ShapesPerimetrComparer());
-
-    Console.WriteLine($"Фигура со вторым по величине периметром = {shapes[^2]}");
-    Console.WriteLine($"Площадь фигуры = {shapes[^2].GetArea():f2}");
-
-    if (shapes[^2] is Circle)
+    if (shapes is null || shapes.Length == 0)
     {
-        Console.WriteLine($"Длинна окружности фигуры = {shapes[^2].GetPerimeter():f2}");
-        Console.WriteLine($"Диаметр фигуры = {shapes[^2].GetHeight()}");
+        throw new ArgumentException("Массив фигур пустой или равен null");
     }
-    else
-    {
-        Console.WriteLine($"Периметр фигуры = {shapes[^2].GetPerimeter():f2}");
-        Console.WriteLine($"Высота фигуры = {shapes[^2].GetHeight()}");
-        Console.WriteLine($"Ширина фигуры = {shapes[^2].GetWidth()}");
-    }
+
+    Array.Sort(shapes, new PerimeterComparer());
+
+    return shapes[^2];
 }
 
-MaxShapeArea(shapes);
-SecondSizeShapePerimeter(shapes);
+Console.WriteLine(MaxShapeArea(shapes));
+Console.WriteLine(SecondSizeShapePerimeter(shapes));

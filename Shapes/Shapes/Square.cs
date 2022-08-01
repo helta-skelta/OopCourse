@@ -1,51 +1,54 @@
 ﻿using System;
 
-namespace Shapes
+namespace ShapesTask
 {
     internal class Square : IShape
     {
-        private double width;
+        private double length;
+
+        private const double epsilon = 1.0e-10;
+        private const int prime = 31;
 
         public Square(double width)
         {
-            this.width = width;
+            this.length = width;
         }
 
         public double Width
         {
-            get => width;
+            get => length;
 
             set
             {
-                if (width <= IShape.EPSILON)
+                if (length <= epsilon)
                 {
                     Console.WriteLine("Длинна стороны должна быть больше 0!");
                 }
                 else
                 {
-                    width = value;
+                    length = value;
                 }
             }
         }
 
         public double GetArea()
         {
-            return width * width;
+            return length * length;
         }
 
         public double GetHeight()
         {
-            return width;
+            return length;
         }
 
         public double GetPerimeter()
         {
-            return width * 4;
+            return length * 4;
         }
 
         public double GetWidth()
         {
-            return width;
+            return length;
         }
 
         public override bool Equals(object? o)
@@ -60,24 +63,23 @@ namespace Shapes
                 return false;
             }
 
-            Square other = (Square)o;
+            Square square = (Square)o;
 
-            return width == other.width;
+            return length == square.length;
         }
 
         public override int GetHashCode()
         {
-            int prime = 27;
             int hash = 1;
 
-            hash = (prime * hash) + width.GetHashCode();
+            hash = prime * hash + length.GetHashCode();
 
             return hash;
         }
 
         public override string ToString()
         {
-            return $"Квадрат со стороной {width}.";
+            return $"Квадрат со стороной {length}.";
         }
     }
 }

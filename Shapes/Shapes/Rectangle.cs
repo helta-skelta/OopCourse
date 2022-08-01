@@ -1,11 +1,14 @@
 ﻿using System;
 
-namespace Shapes
+namespace ShapesTask
 {
     internal class Rectangle : IShape
     {
         private double height;
         private double width;
+
+        private const double epsilon = 1.0e-10;
+        private const int prime = 29;
 
         public Rectangle(double height, double width)
         {
@@ -19,9 +22,9 @@ namespace Shapes
 
             set
             {
-                if (height <= IShape.EPSILON)
+                if (height <= epsilon)
                 {
-                    Console.WriteLine("Длинна стороны должна быть больше 0!");
+                    throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(Height));
                 }
                 else
                 {
@@ -36,9 +39,9 @@ namespace Shapes
 
             set
             {
-                if (width <= IShape.EPSILON)
+                if (width <= epsilon)
                 {
-                    Console.WriteLine("Длинна стороны должна быть больше 0!");
+                    throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(Width));
                 }
                 else
                 {
@@ -79,25 +82,24 @@ namespace Shapes
                 return false;
             }
 
-            Rectangle other = (Rectangle)o;
+            Rectangle rectangle = (Rectangle)o;
 
-            return height == other.height && width == other.width;
+            return height == rectangle.height && width == rectangle.width;
         }
 
         public override int GetHashCode()
         {
-            int prime = 25;
             int hash = 1;
 
-            hash = (prime * hash) + height.GetHashCode();
-            hash = (prime * hash) + width.GetHashCode();
+            hash = prime * hash + height.GetHashCode();
+            hash = prime * hash + width.GetHashCode();
 
             return hash;
         }
 
         public override string ToString()
         {
-            return $"Прямоугольник со сторонами {height},{width}.";
+            return $"Прямоугольник со сторонами {height}, {width}.";
         }
     }
 }
