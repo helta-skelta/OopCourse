@@ -42,7 +42,7 @@
 
         public override string ToString()
         {
-            return $"{{{String.Join(", ", Components!)}}}";
+            return $"{{{string.Join(", ", Components!)}}}";
         }
 
         public void Joining(Vector vector)

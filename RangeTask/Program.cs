@@ -22,39 +22,23 @@ Range? rangesIntersection = range1.GetIntersection(range2);
 
 if (rangesIntersection is null)
 {
-    Console.WriteLine("null");
+    Console.WriteLine("Нет пересечения.");
 }
 else
 {
-    Console.WriteLine("Пересечение диапазонов: " + rangesIntersection);
+    Console.Write("Пересечение диапазонов: " + rangesIntersection);
 }
 
 Console.WriteLine();
 
 Range[] ranges = range1.GetUnion(range2);
 
-if (ranges.Length == 0)
-{
-    Console.WriteLine(0);
-}
-else
-{
-    Console.Write("Обьединение диапазонов: [");
-    Console.Write(String.Join<Range>(", ", (Range[])ranges));
-    Console.WriteLine("]");
-}
+Console.Write("Обьединение диапазонов: ");
+Console.WriteLine(Range.PrintRanges(ranges));
 
 Console.WriteLine();
 
 ranges = range1.GetDifference(range2);
 
-if (ranges.Length == 0)
-{
-    Console.WriteLine("Разность диапазонов: 0");
-}
-else
-{
-    Console.Write("Разность диапазонов: [");
-    Console.Write(String.Join<Range>(", ", (Range[])ranges));
-    Console.WriteLine("]");
-}
+Console.Write("Разность диапазонов: ");
+Console.WriteLine(Range.PrintRanges(ranges));
