@@ -11,6 +11,7 @@ namespace RangeTask
         public Range(double from, double to)
         {
             From = from;
+
             To = to;
         }
 
@@ -30,7 +31,6 @@ namespace RangeTask
             {
                 return null;
             }
-
 
             return new Range(Math.Max(From, range.From), Math.Min(To, range.To));
         }
