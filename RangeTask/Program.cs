@@ -18,27 +18,27 @@ double to2 = Convert.ToDouble(Console.ReadLine());
 
 Range range2 = new(from2, to2);
 
-Range? rangesIntersection = range1.GetIntersection(range2);
+Range? intersection = range1.GetIntersection(range2);
 
-if (rangesIntersection is null)
+if (intersection is null)
 {
     Console.WriteLine("Нет пересечения.");
 }
 else
 {
-    Console.Write("Пересечение диапазонов: " + rangesIntersection);
+    Console.WriteLine("Пересечение диапазонов: " + intersection);
 }
 
 Console.WriteLine();
 
-Range[] ranges = range1.GetUnion(range2);
+Range[] union = range1.GetUnion(range2);
 
 Console.Write("Обьединение диапазонов: ");
-Console.WriteLine(Range.PrintRanges(ranges));
+Console.WriteLine(Range.PrintRanges(union));
 
 Console.WriteLine();
 
-ranges = range1.GetDifference(range2);
+Range[] difference = range1.GetDifference(range2);
 
 Console.Write("Разность диапазонов: ");
-Console.WriteLine(Range.PrintRanges(ranges));
+Console.WriteLine(Range.PrintRanges(difference));

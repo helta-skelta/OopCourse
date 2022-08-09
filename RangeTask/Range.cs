@@ -39,7 +39,7 @@ namespace RangeTask
         {
             if (To < range.From || range.To < From)
             {
-                return new Range[] { new Range(From, To), range };
+                return new Range[] { new Range(From, To), new Range(range.From, range.To) };
             }
 
             return new Range[] { new Range(Math.Min(From, range.From), Math.Max(To, range.To)) };
@@ -72,21 +72,29 @@ namespace RangeTask
 
         public override string ToString()
         {
-            return $"({From},{To})";
+            return $"({From}, {To})";
         }
 
         public static string PrintRanges(Range[] ranges)
         {
-            StringBuilder range = new();
+            StringBuilder stringBuilder = new();
 
-            for (int i = 0; i < ranges.Length; ++i)
+            if (ranges.Length == 0)
             {
-                range.Append(ranges[i].ToString() + ",");
+                return "[]";
             }
 
-            range.Remove(range.Length - 1, 1);
+            foreach (Range range in ranges)
+            {
+                stringBuilder.Append(range);
+                stringBuilder.Append(", ");
+            }
 
-            return "[" + range.ToString() + "]";
+            stringBuilder.Remove(stringBuilder.Length - 2, 2);
+            stringBuilder.Insert(0, "[");
+            stringBuilder.Append(']');
+
+            return $"{stringBuilder}";
         }
     }
 }
