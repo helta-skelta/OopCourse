@@ -11,7 +11,6 @@ namespace RangeTask
         public Range(double from, double to)
         {
             From = from;
-
             To = to;
         }
 
@@ -77,24 +76,25 @@ namespace RangeTask
 
         public static string PrintRanges(Range[] ranges)
         {
-            StringBuilder stringBuilder = new();
-
             if (ranges.Length == 0)
             {
                 return "[]";
             }
 
+            StringBuilder stringBuilder = new();
+
+            stringBuilder.Append('[');
+
             foreach (Range range in ranges)
             {
-                stringBuilder.Append(range);
-                stringBuilder.Append(", ");
+                stringBuilder.Append(range)
+                .Append(", ");
             }
 
-            stringBuilder.Remove(stringBuilder.Length - 2, 2);
-            stringBuilder.Insert(0, "[");
-            stringBuilder.Append(']');
+            stringBuilder.Remove(stringBuilder.Length - 2, 2)
+            .Append(']');
 
-            return $"{stringBuilder}";
+            return stringBuilder.ToString();
         }
     }
 }
