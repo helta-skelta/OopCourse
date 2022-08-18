@@ -1,54 +1,39 @@
-﻿using System;
-
-namespace ShapesTask
+﻿namespace ShapesTask.Shapes
 {
     internal class Square : IShape
     {
-        private double length;
+        private double sideLength;
+        private const double Epsilon = 1.0e-10;
 
-        private const double epsilon = 1.0e-10;
-        private const int prime = 31;
-
-        public Square(double width)
+        public Square(double sideLength)
         {
-            this.length = width;
+            SideLength = sideLength;
         }
 
-        public double Width
+        public double SideLength
         {
-            get => length;
-
-            set
-            {
-                if (length <= epsilon)
-                {
-                    Console.WriteLine("Длинна стороны должна быть больше 0!");
-                }
-                else
-                {
-                    length = value;
-                }
-            }
+            get => sideLength;
+            set => sideLength = value <= Epsilon ? throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(value)) : value;
         }
 
         public double GetArea()
         {
-            return length * length;
+            return sideLength * sideLength;
         }
 
         public double GetHeight()
         {
-            return length;
+            return sideLength;
         }
 
         public double GetPerimeter()
         {
-            return length * 4;
+            return sideLength * 4;
         }
 
         public double GetWidth()
         {
-            return length;
+            return sideLength;
         }
 
         public override bool Equals(object? o)
@@ -65,21 +50,22 @@ namespace ShapesTask
 
             Square square = (Square)o;
 
-            return length == square.length;
+            return sideLength == square.sideLength;
         }
 
         public override int GetHashCode()
         {
             int hash = 1;
+            const int Prime = 31;
 
-            hash = prime * hash + length.GetHashCode();
+            hash = Prime * hash + sideLength.GetHashCode();
 
             return hash;
         }
 
         public override string ToString()
         {
-            return $"Квадрат со стороной {length}.";
+            return $"Квадрат со стороной {sideLength}.";
         }
     }
 }

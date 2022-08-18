@@ -1,4 +1,39 @@
-﻿using ShapesTask;
+﻿using ShapesTask.Shapes;
+using ShapesTask.Comparers;
+
+static IShape GetShapeWithMaximumArea(IShape[] shapes)
+{
+    if (shapes is null)
+    {
+        throw new ArgumentNullException(nameof(shapes), "Массив фигур равен null.");
+    }
+
+    if (shapes.Length == 0)
+    {
+        throw new ArgumentException("Массив фигур пустой.", nameof(shapes));
+    }
+
+    Array.Sort(shapes, new AreaComparer());
+
+    return shapes[^1];
+}
+
+static IShape GetShapeWithSecondLargestPerimeter(IShape[] shapes)
+{
+    if (shapes.Length < 2)
+    {
+        throw new ArgumentException("Количество фигур в массиве меньше двух", nameof(shapes));
+    }
+
+    if (shapes is null)
+    {
+        throw new ArgumentNullException(nameof(shapes), "Массив фигур равен null.");
+    }
+
+    Array.Sort(shapes, new PerimeterComparer());
+
+    return shapes[^2];
+}
 
 IShape[] shapes =
 {
@@ -10,29 +45,5 @@ IShape[] shapes =
     new Rectangle(1.0, 8.0)
 };
 
-static IShape MaxShapeArea(IShape[] shapes)
-{
-    if (shapes is null || shapes.Length == 0)
-    {
-        throw new ArgumentException("Массив фигур пустой или равен null");
-    }
-
-    Array.Sort(shapes, new AreaComparer());
-
-    return shapes[^1];
-}
-
-static IShape SecondSizeShapePerimeter(IShape[] shapes)
-{
-    if (shapes is null || shapes.Length == 0)
-    {
-        throw new ArgumentException("Массив фигур пустой или равен null");
-    }
-
-    Array.Sort(shapes, new PerimeterComparer());
-
-    return shapes[^2];
-}
-
-Console.WriteLine(MaxShapeArea(shapes));
-Console.WriteLine(SecondSizeShapePerimeter(shapes));
+Console.WriteLine("Фигура с максимальной площадью = " + GetShapeWithMaximumArea(shapes));
+Console.WriteLine("Фигура со вторым по величине периметром = " + GetShapeWithSecondLargestPerimeter(shapes));

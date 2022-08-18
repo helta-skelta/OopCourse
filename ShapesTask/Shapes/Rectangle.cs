@@ -1,53 +1,28 @@
-﻿using System;
-
-namespace ShapesTask
+﻿namespace ShapesTask.Shapes
 {
     internal class Rectangle : IShape
     {
         private double height;
         private double width;
-
-        private const double epsilon = 1.0e-10;
-        private const int prime = 29;
+        private const double Epsilon = 1.0e-10;
 
         public Rectangle(double height, double width)
         {
-            this.height = height;
-            this.width = width;
+            Height = height;
+            Width = width;
         }
 
         public double Height
         {
             get => height;
-
-            set
-            {
-                if (height <= epsilon)
-                {
-                    throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(Height));
-                }
-                else
-                {
-                    height = value;
-                }
-            }
+            set => height = value <= Epsilon ? throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(value)) : value;
         }
 
         public double Width
         {
             get => width;
 
-            set
-            {
-                if (width <= epsilon)
-                {
-                    throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(Width));
-                }
-                else
-                {
-                    width = value;
-                }
-            }
+            set => width = value <= Epsilon && value >= -Epsilon ? throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(value)) : value;
         }
 
         public double GetArea()
@@ -90,9 +65,10 @@ namespace ShapesTask
         public override int GetHashCode()
         {
             int hash = 1;
+            const int Prime = 29;
 
-            hash = prime * hash + height.GetHashCode();
-            hash = prime * hash + width.GetHashCode();
+            hash = Prime * hash + height.GetHashCode();
+            hash = Prime * hash + width.GetHashCode();
 
             return hash;
         }

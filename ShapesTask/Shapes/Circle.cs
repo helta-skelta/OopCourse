@@ -1,27 +1,24 @@
-﻿using System;
-
-namespace ShapesTask
+﻿namespace ShapesTask.Shapes
 {
     internal class Circle : IShape
     {
         private double radius;
-
-        private const double epsilon = 1.0e-10;
-        private const int prime = 23;
+        private const double Epsilon = 1.0e-10;
 
         public double Radius
         {
             get => radius;
-            set => radius = (radius <= epsilon) ? value : 0;
+            set => radius = (value <= Epsilon) ? throw new ArgumentException("Радиус круга должен быть больше 0!", nameof(value)) : value;
         }
 
         public Circle(double radius)
         {
-            this.radius = radius;
+            Radius = radius;
         }
+
         public double GetArea()
         {
-            return Math.PI * (radius * radius);
+            return Math.PI * radius * radius;
         }
 
         public double GetHeight()
@@ -59,8 +56,9 @@ namespace ShapesTask
         public override int GetHashCode()
         {
             int hash = 1;
+            const int Prime = 23;
 
-            hash = prime * hash + radius.GetHashCode();
+            hash = Prime * hash + radius.GetHashCode();
 
             return hash;
         }
