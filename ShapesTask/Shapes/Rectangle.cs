@@ -15,14 +15,17 @@
         public double Height
         {
             get => height;
-            set => height = value <= Epsilon ? throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(value)) : value;
+            set => height = value <= Epsilon
+                ? throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(value))
+                : value;
         }
 
         public double Width
         {
             get => width;
-
-            set => width = value <= Epsilon && value >= -Epsilon ? throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(value)) : value;
+            set => width = value <= Epsilon
+                ? throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(value))
+                : value;
         }
 
         public double GetArea()
@@ -65,17 +68,17 @@
         public override int GetHashCode()
         {
             int hash = 1;
-            const int Prime = 29;
+            const int prime = 29;
 
-            hash = Prime * hash + height.GetHashCode();
-            hash = Prime * hash + width.GetHashCode();
+            hash = prime * hash + height.GetHashCode();
+            hash = prime * hash + width.GetHashCode();
 
             return hash;
         }
 
         public override string ToString()
         {
-            return $"Прямоугольник со сторонами {height}, {width}.";
+            return $"Прямоугольник со сторонами: высота = {height}, ширина = {width}.";
         }
     }
 }

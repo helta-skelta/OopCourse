@@ -13,7 +13,9 @@
         public double SideLength
         {
             get => sideLength;
-            set => sideLength = value <= Epsilon ? throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(value)) : value;
+            set => sideLength = value <= Epsilon
+                ? throw new ArgumentException("Длинна стороны должна быть больше 0!", nameof(value))
+                : value;
         }
 
         public double GetArea()
@@ -56,9 +58,9 @@
         public override int GetHashCode()
         {
             int hash = 1;
-            const int Prime = 31;
+            const int prime = 31;
 
-            hash = Prime * hash + sideLength.GetHashCode();
+            hash = prime * hash + sideLength.GetHashCode();
 
             return hash;
         }

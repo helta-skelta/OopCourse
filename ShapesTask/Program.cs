@@ -1,7 +1,7 @@
 ﻿using ShapesTask.Shapes;
 using ShapesTask.Comparers;
 
-static IShape GetShapeWithMaximumArea(IShape[] shapes)
+static IShape GetShapeWithMaxArea(IShape[] shapes)
 {
     if (shapes is null)
     {
@@ -20,14 +20,14 @@ static IShape GetShapeWithMaximumArea(IShape[] shapes)
 
 static IShape GetShapeWithSecondLargestPerimeter(IShape[] shapes)
 {
-    if (shapes.Length < 2)
-    {
-        throw new ArgumentException("Количество фигур в массиве меньше двух", nameof(shapes));
-    }
-
     if (shapes is null)
     {
         throw new ArgumentNullException(nameof(shapes), "Массив фигур равен null.");
+    }
+
+    if (shapes.Length < 2)
+    {
+        throw new ArgumentException("Количество фигур в массиве меньше двух", nameof(shapes));
     }
 
     Array.Sort(shapes, new PerimeterComparer());
@@ -45,5 +45,5 @@ IShape[] shapes =
     new Rectangle(1.0, 8.0)
 };
 
-Console.WriteLine("Фигура с максимальной площадью = " + GetShapeWithMaximumArea(shapes));
+Console.WriteLine("Фигура с максимальной площадью = " + GetShapeWithMaxArea(shapes));
 Console.WriteLine("Фигура со вторым по величине периметром = " + GetShapeWithSecondLargestPerimeter(shapes));

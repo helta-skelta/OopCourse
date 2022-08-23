@@ -40,27 +40,21 @@
 
         public double GetHeight()
         {
-            double max = Math.Max(Y1, Y2);
-            double min = Math.Min(Y1, Y2);
-
-            return Math.Max(max, Y3) - Math.Min(min, Y3);
+            return Math.Max(Y3, Math.Max(Y1, Y2)) - Math.Min(Y3, Math.Min(Y1, Y2));
         }
 
         public double GetWidth()
         {
-            double max = Math.Max(X1, X2);
-            double min = Math.Min(X1, X2);
-
-            return Math.Max(max, X3) - Math.Min(min, X3);
+            return Math.Max(X3, Math.Max(X1, X2)) - Math.Min(X3, Math.Min(X1, X2));
         }
 
         public double GetPerimeter()
         {
-            double side1 = GetSideLength(X1, Y1, X2, Y2);
-            double side2 = GetSideLength(X2, Y2, X3, Y3);
-            double side3 = GetSideLength(X3, Y3, X1, Y1);
+            double side1Length = GetSideLength(X1, Y1, X2, Y2);
+            double side2Length = GetSideLength(X2, Y2, X3, Y3);
+            double side3Length = GetSideLength(X3, Y3, X1, Y1);
 
-            return side1 + side2 + side3;
+            return side1Length + side2Length + side3Length;
         }
 
         private static double GetSideLength(double x1, double y1, double x2, double y2)
@@ -82,27 +76,28 @@
 
             Triangle triangle = (Triangle)o;
 
-            return X1 == triangle.X1 && X2 == triangle.X2 && X3 == triangle.X3 && Y1 == triangle.Y1 && Y2 == triangle.Y2 && Y3 == triangle.Y3;
+            return X1 == triangle.X1 && X2 == triangle.X2 && X3 == triangle.X3
+                && Y1 == triangle.Y1 && Y2 == triangle.Y2 && Y3 == triangle.Y3;
         }
 
         public override int GetHashCode()
         {
             int hash = 1;
-            const int Prime = 37;
+            const int prime = 37;
 
-            hash = Prime * hash + X1.GetHashCode();
-            hash = Prime * hash + X2.GetHashCode();
-            hash = Prime * hash + X3.GetHashCode();
-            hash = Prime * hash + Y1.GetHashCode();
-            hash = Prime * hash + Y2.GetHashCode();
-            hash = Prime * hash + Y3.GetHashCode();
+            hash = prime * hash + X1.GetHashCode();
+            hash = prime * hash + X2.GetHashCode();
+            hash = prime * hash + X3.GetHashCode();
+            hash = prime * hash + Y1.GetHashCode();
+            hash = prime * hash + Y2.GetHashCode();
+            hash = prime * hash + Y3.GetHashCode();
 
             return hash;
         }
 
         public override string ToString()
         {
-            return $"Треугольник с координатами сторон : ({X1}; {Y1}), ({X2}; {Y2}), ({X3}; {Y3}).";
+            return $"Треугольник с координатами вершин: ({X1}; {Y1}), ({X2}; {Y2}), ({X3}; {Y3}).";
         }
     }
 }

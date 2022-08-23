@@ -8,7 +8,9 @@
         public double Radius
         {
             get => radius;
-            set => radius = (value <= Epsilon) ? throw new ArgumentException("Радиус круга должен быть больше 0!", nameof(value)) : value;
+            set => radius = value <= Epsilon
+                ? throw new ArgumentException("Радиус круга должен быть больше 0!", nameof(value))
+                : value;
         }
 
         public Circle(double radius)
@@ -56,9 +58,9 @@
         public override int GetHashCode()
         {
             int hash = 1;
-            const int Prime = 23;
+            const int prime = 23;
 
-            hash = Prime * hash + radius.GetHashCode();
+            hash = prime * hash + radius.GetHashCode();
 
             return hash;
         }
