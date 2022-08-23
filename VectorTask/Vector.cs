@@ -1,98 +1,102 @@
 ﻿namespace VectorTask
 {
-    internal class Vector
+    public class Vector
     {
-        private double[]? components;
-
-        public double[]? Components
-        {
-            get => components;
-            set => components = value is null || value.Length == 0 ? throw new ArgumentNullException(nameof(value), "Vector is null or void") : value;
-        }
+        private double[] components;
 
         public double this[int index]
         {
-            get => components![index];
-            set => components![index] = value;
+            get => components[index];
+            set => components[index] = value;
         }
 
-        public Vector(int n)
+        public Vector(int vectorLength)
         {
-            if (n <= 0)
+            components = vectorLength <= 0 ? throw new ArgumentException("Длина вектора равна 0", nameof(vectorLength)) : new double[vectorLength];
+        }
+
+        public Vector(Vector vector)
+        {
+            if (vector is null)
             {
-                throw new ArgumentException("Длинна массива должна быть > 0", nameof(n));
+                throw new ArgumentNullException(nameof(vector), "Вектор равен null");
             }
 
-            Components = new double[n];
+            components = vector.GetSize() <= 0 ? throw new ArgumentException("Длина вектора равна 0", nameof(vector)) : new double[vector.GetSize()];
+
+            Array.Copy(vector.components, components, vector.GetSize());
         }
 
-        public Vector(Vector vector) : this(vector!.Components!.Length, vector.Components) { }
-
-        public Vector(double[] components) : this(components.Length, components) { }
-
-        public Vector(int n, double[] components) : this(n)
+        public Vector(double[] components)
         {
-            for (int i = 0; i < components?.Length; ++i)
+            if (components is null)
             {
-                Components![i] = components[i];
+                throw new ArgumentNullException(nameof(components), "Вектор равен null");
             }
+
+            this.components = components.Length <= 0 ? throw new ArgumentException("Длина вектора равна 0", nameof(components)) : new double[components.Length];
+
+            Array.Copy(components, this.components, components.Length);
         }
 
-        public int GetSize() => Components!.Length;
+        public Vector(int vectorLength, double[] components)
+        {
+            if (components is null)
+            {
+                throw new ArgumentNullException(nameof(components), "Вектор равен null");
+            }
+
+            this.components = vectorLength <= 0 ? throw new ArgumentException("Длина вектора равна 0", nameof(vectorLength)) : new double[vectorLength];
+
+            Array.Copy(components, this.components!, components.Length);
+        }
+
+        public int GetSize() => components.Length;
 
         public override string ToString()
         {
-            return $"{{{string.Join(", ", Components!)}}}";
+            return $"{{{string.Join(", ", components)}}}";
         }
 
-        public void Joining(Vector vector)
+        public void Add(Vector vector)
         {
             if (vector is null)
             {
-                throw new ArgumentNullException(nameof(vector), "Vector is null");
+                throw new ArgumentNullException(nameof(vector), "Вектор равен null");
             }
 
-            if (components!.Length < vector!.components!.Length)
+            if (components.Length < vector.components.Length)
             {
-                Array.Resize(ref this.components, vector!.components!.Length);
-            }
-            else if (components!.Length < vector!.components!.Length)
-            {
-                Array.Resize(ref vector!.components, components!.Length);
+                Array.Resize(ref components, vector.components.Length);
             }
 
-            for (int i = 0; i < components!.Length; ++i)
+            for (int i = 0; i < vector.GetSize(); ++i)
             {
-                components![i] += vector!.components![i];
+                components[i] += vector[i];
             }
         }
 
-        public void Subtraction(Vector vector)
+        public void Subtract(Vector vector)
         {
             if (vector is null)
             {
-                return;
+                throw new ArgumentNullException(nameof(vector), "Вектор равен null");
             }
 
-            if (vector!.components!.Length <= components!.Length)
+            if (components.Length < vector.components.Length)
             {
-                for (int i = 0; i < vector.components!.Length; ++i)
-                {
-                    components[i] -= vector.components![i];
-                }
+                Array.Resize(ref components, vector.components.Length);
             }
-            else
+
+            for (int i = 0; i < vector.GetSize(); ++i)
             {
-                for (int i = 0; i < components!.Length; ++i)
-                {
-                    components[i] -= vector.components![i];
-                }
+                components[i] -= vector[i];
             }
         }
 
-        public void ScalarMultiply(double factor)
+        public void MultiplyByScalar(double factor)
         {
-            for (int i = 0; i < components!.Length; ++i)
+            for (int i = 0; i < components.Length; ++i)
             {
                 components[i] *= factor;
             }
@@ -100,19 +104,19 @@
 
         public void Reverse()
         {
-            ScalarMultiply(-1);
+            MultiplyByScalar(-1);
         }
 
         public double GetLength()
         {
-            double length = 0;
+            double componentsSquaredSum = 0;
 
-            for (int i = 0; i < components!.Length; ++i)
+            foreach (double component in components)
             {
-                length += components[i] * components[i];
+                componentsSquaredSum += component * component;
             }
 
-            return Math.Sqrt(length);
+            return Math.Sqrt(componentsSquaredSum);
         }
 
         public override bool Equals(object? obj)
@@ -129,83 +133,83 @@
 
             Vector vector = (Vector)obj;
 
-            return ToString() == vector.ToString();
+            return Enumerable.SequenceEqual(components, vector.components);
         }
 
         public override int GetHashCode()
         {
-            int hash = 0;
-            int prime = 31;
+            int hash = 1;
+            const int prime = 31;
 
-            hash = prime * hash + (components != null ? components.GetHashCode() : 0);
+            if (components != null)
+            {
+                foreach (double component in components)
+                {
+                    hash = prime * hash + component.GetHashCode();
+                }
 
-            return hash;
+                return hash;
+            }
+
+            return 0;
         }
 
-        public static Vector Join(Vector a, Vector b)
+        public static Vector GetSum(Vector vector1, Vector vector2)
         {
-            if (a is null)
+            if (vector1 is null)
             {
-                throw new ArgumentNullException(nameof(a), "Vector is null");
+                throw new ArgumentNullException(nameof(vector1), "Вектор1 равен null");
             }
 
-            if (b is null)
+            if (vector2 is null)
             {
-                throw new ArgumentNullException(nameof(b), "Vector is null");
+                throw new ArgumentNullException(nameof(vector2), "Вектор2 равен null");
             }
 
-            Vector result = new(a);
+            Vector result = new(vector1);
 
-            result.Joining(b);
+            result.Add(vector2);
 
             return result;
         }
 
-        public static Vector Subtract(Vector a, Vector b)
+        public static Vector GetDifference(Vector vector1, Vector vector2)
         {
-            if (a is null)
+            if (vector1 is null)
             {
-                throw new ArgumentNullException(nameof(a), "Vector is null");
+                throw new ArgumentNullException(nameof(vector1), "Вектор1 равен null");
             }
 
-            if (b is null)
+            if (vector2 is null)
             {
-                throw new ArgumentNullException(nameof(b), "Vector is null");
+                throw new ArgumentNullException(nameof(vector2), "Вектор2 равен null");
             }
 
-            Vector result = new(a);
+            Vector result = new(vector1);
 
-            result.Subtraction(b);
+            result.Subtract(vector2);
 
             return result;
         }
 
-        public static Vector Multiply(Vector a, Vector b)
+        public static double GetDotProduct(Vector vector1, Vector vector2)
         {
-            if (a is null)
+            if (vector1 is null)
             {
-                throw new ArgumentNullException(nameof(a), "Vector is null");
+                throw new ArgumentNullException(nameof(vector1), "Вектор1 равен null");
             }
 
-            if (b is null)
+            if (vector2 is null)
             {
-                throw new ArgumentNullException(nameof(b), "Vector is null");
+                throw new ArgumentNullException(nameof(vector2), "Вектор2 равен null");
             }
 
-            if (a.components!.Length < b.components!.Length)
-            {
-                Array.Resize(ref a.components, b.components!.Length);
-            }
-            else if (a.components.Length < b.components!.Length)
-            {
-                Array.Resize(ref b.components, a.components.Length);
-            }
+            int smallerVector = Math.Min(vector1.GetSize(), vector2.GetSize());
+            double result = 0;
 
-            Vector result = new(a);
-
-            for (int i = 0; i < a.components!.Length; ++i)
+            for (int i = 0; i < smallerVector; ++i)
             {
-                result[i] *= b[i];
+                result += vector1[i] * vector2[i];
             }
 
             return result;

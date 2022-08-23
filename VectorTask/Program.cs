@@ -8,7 +8,7 @@ Vector b = new(10, components2);
 Vector c = new(a);
 Vector d = new(7);
 
-d.Joining(b);
+d.Add(b);
 Console.WriteLine("Прибавили к вектору \"d\" вектор \"b\" = " + d);
 
 Console.WriteLine("Размер вектора \"d\" = " + d.GetSize());
@@ -18,10 +18,10 @@ Console.WriteLine();
 
 d[3] = 6;//Установили компоненту вектора "d" под индексом 3
 
-d.Subtraction(a);
+d.Subtract(a);
 Console.WriteLine("Вычли из вектора \"d\" вектор \"a\" = " + d);
 
-c.ScalarMultiply(2.0);
+c.MultiplyByScalar(2.0);
 Console.WriteLine("Умножили вектор \"c\" на 2 = " + c);
 
 c.Reverse();
@@ -42,11 +42,11 @@ Console.WriteLine("Хэш-код вектора \"b\" = " + b.GetHashCode());
 Console.WriteLine(a);
 Console.WriteLine(b);
 
-Console.WriteLine("Разность векторов \"a\" и \"b\" = " + Vector.Subtract(a, b));
+Console.WriteLine("Разность векторов \"a\" и \"b\" = " + Vector.GetDifference(a, b));
 
 Console.WriteLine(a);
 Console.WriteLine(b);
 
-Console.WriteLine("Сумма векторов \"a\" и \"b\" = " + Vector.Join(a, b));
-Console.WriteLine("Разность векторов \"a\" и \"b\" = " + Vector.Subtract(a, b));
-Console.WriteLine("Произведение векторов \"a\" и \"b\" = " + Vector.Multiply(a, b));
+Console.WriteLine("Сумма векторов \"a\" и \"b\" = " + Vector.GetSum(a, b));
+Console.WriteLine("Разность векторов \"a\" и \"b\" = " + Vector.GetDifference(a, b));
+Console.WriteLine("Произведение векторов \"a\" и \"b\" = " + Vector.GetDotProduct(a, b));
