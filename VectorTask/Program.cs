@@ -11,7 +11,7 @@ Vector d = new(7);
 d.Add(b);
 Console.WriteLine("Прибавили к вектору \"d\" вектор \"b\" = " + d);
 
-Console.WriteLine("Размер вектора \"d\" = " + d.GetSize());
+Console.WriteLine("Размер вектора \"d\" = " + d.GetSize);
 Console.WriteLine("Длинна вектора \"d\" = " + d.GetLength());
 Console.WriteLine("Компонента вектора \"d\" под индексом \"3\" = " + d[3]);
 Console.WriteLine();

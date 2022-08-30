@@ -10,9 +10,14 @@
             set => components[index] = value;
         }
 
-        public Vector(int vectorLength)
+        public Vector(int size)
         {
-            components = vectorLength <= 0 ? throw new ArgumentException("Длина вектора равна 0", nameof(vectorLength)) : new double[vectorLength];
+            if (size <= 0)
+            {
+                throw new ArgumentException("Размер вектора меньше или равен 0. Размер вектора должен быть больше 0.", nameof(size));
+            }
+
+            components = new double[size];
         }
 
         public Vector(Vector vector)
@@ -22,36 +27,46 @@
                 throw new ArgumentNullException(nameof(vector), "Вектор равен null");
             }
 
-            components = vector.GetSize() <= 0 ? throw new ArgumentException("Длина вектора равна 0", nameof(vector)) : new double[vector.GetSize()];
+            components = new double[vector.components.Length];
 
-            Array.Copy(vector.components, components, vector.GetSize());
+            Array.Copy(vector.components, components, vector.components.Length);
         }
 
         public Vector(double[] components)
         {
             if (components is null)
             {
-                throw new ArgumentNullException(nameof(components), "Вектор равен null");
+                throw new ArgumentNullException(nameof(components), "Массив равен null");
             }
 
-            this.components = components.Length <= 0 ? throw new ArgumentException("Длина вектора равна 0", nameof(components)) : new double[components.Length];
+            if (components.Length == 0)
+            {
+                throw new ArgumentException("Размер вектора = 0. Размер вектора должен быть больше 0.", nameof(components));
+            }
+
+            this.components = new double[components.Length];
 
             Array.Copy(components, this.components, components.Length);
         }
 
-        public Vector(int vectorLength, double[] components)
+        public Vector(int size, double[] components)
         {
             if (components is null)
             {
-                throw new ArgumentNullException(nameof(components), "Вектор равен null");
+                throw new ArgumentNullException(nameof(components), "Массив равен null");
             }
 
-            this.components = vectorLength <= 0 ? throw new ArgumentException("Длина вектора равна 0", nameof(vectorLength)) : new double[vectorLength];
+            if (size <= 0)
+            {
+                throw new ArgumentException("Размер вектора меньше или равен 0. Размер вектора должен быть больше 0.", nameof(size));
+            }
 
-            Array.Copy(components, this.components!, components.Length);
+            this.components = new double[size];
+
+            Array.Copy(components, this.components, Math.Min(size, components.Length));
         }
 
-        public int GetSize() => components.Length;
+        public int GetSize { get => components.Length; }
 
         public override string ToString()
         {
@@ -70,7 +85,7 @@
                 Array.Resize(ref components, vector.components.Length);
             }
 
-            for (int i = 0; i < vector.GetSize(); ++i)
+            for (int i = 0; i < vector.components.Length; ++i)
             {
                 components[i] += vector[i];
             }
@@ -88,7 +103,7 @@
                 Array.Resize(ref components, vector.components.Length);
             }
 
-            for (int i = 0; i < vector.GetSize(); ++i)
+            for (int i = 0; i < vector.components.Length; ++i)
             {
                 components[i] -= vector[i];
             }
@@ -133,7 +148,7 @@
 
             Vector vector = (Vector)obj;
 
-            return Enumerable.SequenceEqual(components, vector.components);
+            return components.SequenceEqual(vector.components);
         }
 
         public override int GetHashCode()
@@ -141,17 +156,12 @@
             int hash = 1;
             const int prime = 31;
 
-            if (components != null)
+            foreach (double component in components)
             {
-                foreach (double component in components)
-                {
-                    hash = prime * hash + component.GetHashCode();
-                }
-
-                return hash;
+                hash = prime * hash + component.GetHashCode();
             }
 
-            return 0;
+            return hash;
         }
 
         public static Vector GetSum(Vector vector1, Vector vector2)
@@ -204,10 +214,10 @@
                 throw new ArgumentNullException(nameof(vector2), "Вектор2 равен null");
             }
 
-            int smallerVector = Math.Min(vector1.GetSize(), vector2.GetSize());
+            int minVector = Math.Min(vector1.components.Length, vector2.components.Length);
             double result = 0;
 
-            for (int i = 0; i < smallerVector; ++i)
+            for (int i = 0; i < minVector; ++i)
             {
                 result += vector1[i] * vector2[i];
             }
