@@ -14,7 +14,7 @@
         {
             if (size <= 0)
             {
-                throw new ArgumentException("Размер вектора меньше или равен 0. Размер вектора должен быть больше 0.", nameof(size));
+                throw new ArgumentException($"Размер  равен {size}. Размер вектора должен быть больше 0.", nameof(size));
             }
 
             components = new double[size];
@@ -24,7 +24,7 @@
         {
             if (vector is null)
             {
-                throw new ArgumentNullException(nameof(vector), "Вектор равен null");
+                throw new ArgumentNullException(nameof(vector), $"Вектор равен {vector}.");
             }
 
             components = new double[vector.components.Length];
@@ -36,12 +36,12 @@
         {
             if (components is null)
             {
-                throw new ArgumentNullException(nameof(components), "Массив равен null");
+                throw new ArgumentNullException(nameof(components), $"Массив равен {components}.");
             }
 
             if (components.Length == 0)
             {
-                throw new ArgumentException("Размер вектора = 0. Размер вектора должен быть больше 0.", nameof(components));
+                throw new ArgumentException($"Размер вектора = {components.Length}. Размер вектора должен быть больше 0.", nameof(components));
             }
 
             this.components = new double[components.Length];
@@ -53,12 +53,12 @@
         {
             if (components is null)
             {
-                throw new ArgumentNullException(nameof(components), "Массив равен null");
+                throw new ArgumentNullException(nameof(components), $"Массив равен {components}.");
             }
 
             if (size <= 0)
             {
-                throw new ArgumentException("Размер вектора меньше или равен 0. Размер вектора должен быть больше 0.", nameof(size));
+                throw new ArgumentException($"Размер равен {size}. Размер вектора должен быть больше 0.", nameof(size));
             }
 
             this.components = new double[size];
@@ -66,7 +66,7 @@
             Array.Copy(components, this.components, Math.Min(size, components.Length));
         }
 
-        public int GetSize { get => components.Length; }
+        public int Size => components.Length;
 
         public override string ToString()
         {
@@ -77,7 +77,7 @@
         {
             if (vector is null)
             {
-                throw new ArgumentNullException(nameof(vector), "Вектор равен null");
+                throw new ArgumentNullException(nameof(vector), $"Вектор равен {vector}.");
             }
 
             if (components.Length < vector.components.Length)
@@ -95,7 +95,7 @@
         {
             if (vector is null)
             {
-                throw new ArgumentNullException(nameof(vector), "Вектор равен null");
+                throw new ArgumentNullException(nameof(vector), $"Вектор равен {vector}.");
             }
 
             if (components.Length < vector.components.Length)
@@ -168,12 +168,12 @@
         {
             if (vector1 is null)
             {
-                throw new ArgumentNullException(nameof(vector1), "Вектор1 равен null");
+                throw new ArgumentNullException(nameof(vector1), $"Вектор1 равен {vector1}");
             }
 
             if (vector2 is null)
             {
-                throw new ArgumentNullException(nameof(vector2), "Вектор2 равен null");
+                throw new ArgumentNullException(nameof(vector2), $"Вектор2 равен {vector2}");
             }
 
             Vector result = new(vector1);
@@ -187,12 +187,12 @@
         {
             if (vector1 is null)
             {
-                throw new ArgumentNullException(nameof(vector1), "Вектор1 равен null");
+                throw new ArgumentNullException(nameof(vector1), $"Вектор1 равен {vector1}");
             }
 
             if (vector2 is null)
             {
-                throw new ArgumentNullException(nameof(vector2), "Вектор2 равен null");
+                throw new ArgumentNullException(nameof(vector2), $"Вектор2 равен {vector2}");
             }
 
             Vector result = new(vector1);
@@ -206,18 +206,18 @@
         {
             if (vector1 is null)
             {
-                throw new ArgumentNullException(nameof(vector1), "Вектор1 равен null");
+                throw new ArgumentNullException(nameof(vector1), $"Вектор1 равен {vector1}");
             }
 
             if (vector2 is null)
             {
-                throw new ArgumentNullException(nameof(vector2), "Вектор2 равен null");
+                throw new ArgumentNullException(nameof(vector2), $"Вектор2 равен {vector2}");
             }
 
-            int minVector = Math.Min(vector1.components.Length, vector2.components.Length);
+            int elementsCount = Math.Min(vector1.components.Length, vector2.components.Length);
             double result = 0;
 
-            for (int i = 0; i < minVector; ++i)
+            for (int i = 0; i < elementsCount; ++i)
             {
                 result += vector1[i] * vector2[i];
             }
