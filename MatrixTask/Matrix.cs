@@ -60,22 +60,22 @@ namespace MatrixTask
         {
             if (vektor is null)
             {
-                throw new ArgumentNullException(nameof(vektor), "Вектор равен null");
+                throw new ArgumentNullException(nameof(vektor), $"Вектор равен {vektor}");
             }
 
-            int width = vektor[0].GetSize < vektor[1].GetSize ? vektor[1].GetSize : vektor[0].GetSize;
+            int width = vektor[0].Size < vektor[1].Size ? vektor[1].Size : vektor[0].Size;
             int height = vektor.Length;
 
             for (int i = 1; i < vektor.Length - 1; ++i)
             {
-                width = width < vektor[i + 1].GetSize ? vektor[i + 1].GetSize : width;
+                width = width < vektor[i + 1].Size ? vektor[i + 1].Size : width;
             }
 
             Mass = new double[height, width];
 
             for (int i = 0; i < height; ++i)
             {
-                for (int j = 0; j < vektor[i].GetSize; ++j)
+                for (int j = 0; j < vektor[i].Size; ++j)
                 {
                     mass![i, j] = vektor[i][j];
                 }
@@ -105,7 +105,7 @@ namespace MatrixTask
         {
             if (rowIndex < 0 || rowIndex > mass.GetLength(0))
             {
-                throw new ArgumentOutOfRangeException(nameof(rowIndex), "Недопустимое значение аргумента, строки под таким индексом нет.");
+                throw new ArgumentOutOfRangeException(nameof(rowIndex), $"Недопустимое значение аргумента, строки под индексом {rowIndex} нет.");
             }
 
             double[] matrixRow = new double[GetWidth];
@@ -122,7 +122,7 @@ namespace MatrixTask
         {
             if (coloumnIndex < 0 || coloumnIndex > mass!.GetLength(1))
             {
-                throw new ArgumentOutOfRangeException(nameof(coloumnIndex), "Недопустимое значение аргумента, столбца под таким индексом нет.");
+                throw new ArgumentOutOfRangeException(nameof(coloumnIndex), $"Недопустимое значение аргумента, столбца под индексом {coloumnIndex} нет.");
             }
 
             double[] matrixColoumn = new double[GetHeight];
@@ -149,7 +149,7 @@ namespace MatrixTask
         {
             if (rowIndex < 0 || rowIndex > mass.GetLength(0))
             {
-                throw new ArgumentOutOfRangeException(nameof(rowIndex), "Недопустимое значение аргумента, строки под таким индексом нет.");
+                throw new ArgumentOutOfRangeException(nameof(rowIndex), $"Недопустимое значение аргумента, строки под индексом {rowIndex} нет.");
             }
 
             return new(GetRow(rowIndex));
@@ -159,20 +159,20 @@ namespace MatrixTask
         {
             if (vector is null)
             {
-                throw new ArgumentNullException(nameof(vector), "Вектор равен null");
+                throw new ArgumentNullException(nameof(vector), $"Вектор равен {vector}");
             }
 
             if (rowIndex < 0 || rowIndex > mass.GetLength(0))
             {
-                throw new ArgumentOutOfRangeException(nameof(rowIndex), "Недопустимое значение аргумента, строки под таким индексом нет.");
+                throw new ArgumentOutOfRangeException(nameof(rowIndex), $"Недопустимое значение аргумента, строки под индексом {rowIndex} нет.");
             }
 
-            if (vector.GetSize > mass.GetLength(1))
+            if (vector.Size > mass.GetLength(1))
             {
-                Resize(mass.GetLength(0), vector.GetSize);
+                Resize(mass.GetLength(0), vector.Size);
             }
 
-            for (int i = 0; i < vector.GetSize; ++i)
+            for (int i = 0; i < vector.Size; ++i)
             {
                 mass[rowIndex, i] = vector[i];
             }
@@ -182,7 +182,7 @@ namespace MatrixTask
         {
             if (coloumnIndex < 0 || coloumnIndex > mass.GetLength(1))
             {
-                throw new ArgumentOutOfRangeException(nameof(coloumnIndex), "Недопустимое значение аргумента, столбца под таким индексом нет.");
+                throw new ArgumentOutOfRangeException(nameof(coloumnIndex), $"Недопустимое значение аргумента, столбца под индексом {coloumnIndex} нет.");
             }
 
             return new(GetColoumn(coloumnIndex));
@@ -223,11 +223,11 @@ namespace MatrixTask
 
             if (GetWidth != GetHeight)
             {
-                throw new ArgumentException("Матрица должна быть квадратной.", nameof(mass));
+                throw new ArgumentException($"Матрица {matrix} должна быть квадратной.", nameof(matrix));
             }
 
             Vector currentMatrixRow = new(GetHeight);
-            int matrixSize = currentMatrixRow.GetSize;
+            int matrixSize = currentMatrixRow.Size;
             double determinant = 1;
             const double epsilon = 1.0e-10;
 
@@ -253,7 +253,7 @@ namespace MatrixTask
                         ++j;
                     }
 
-                    if (j == currentMatrixRow.GetSize)
+                    if (j == currentMatrixRow.Size)
                     {
                         return 0;
                     }
@@ -277,10 +277,10 @@ namespace MatrixTask
         {
             if (vector is null)
             {
-                throw new ArgumentNullException(nameof(vector), "Вектор равен null");
+                throw new ArgumentNullException(nameof(vector), $"Вектор равен {vector}");
             }
 
-            int length = Math.Min(vector.GetSize, mass.GetLength(1));
+            int length = Math.Min(vector.Size, mass.GetLength(1));
 
             for (int i = 0; i < mass.GetLength(0); ++i)
             {
@@ -295,7 +295,7 @@ namespace MatrixTask
         {
             if (matrix is null)
             {
-                throw new ArgumentNullException(nameof(matrix), "Матрица равна null");
+                throw new ArgumentNullException(nameof(matrix), $"Матрица равна {matrix}");
             }
 
             if (matrix.mass.GetLength(0) > mass.GetLength(0) && matrix.mass.GetLength(1) > mass.GetLength(1))
@@ -326,7 +326,7 @@ namespace MatrixTask
         {
             if (matrix is null)
             {
-                throw new ArgumentNullException(nameof(matrix), "Матрица равна null");
+                throw new ArgumentNullException(nameof(matrix), $"Матрица равна {matrix}");
             }
 
             int height = Math.Min(matrix.mass.GetLength(0), mass.GetLength(0));
@@ -363,12 +363,12 @@ namespace MatrixTask
         {
             if (matrix1 is null)
             {
-                throw new ArgumentNullException(nameof(matrix1), "Матрица1 равна null");
+                throw new ArgumentNullException(nameof(matrix1), $"Матрица1 равна {matrix1}");
             }
 
             if (matrix2 is null)
             {
-                throw new ArgumentNullException(nameof(matrix2), "Матрица2 равна null");
+                throw new ArgumentNullException(nameof(matrix2), $"Матрица2 равна {matrix2}");
             }
 
             Matrix sumMatrix = new(matrix1.mass);
@@ -382,12 +382,12 @@ namespace MatrixTask
         {
             if (matrix1 is null)
             {
-                throw new ArgumentNullException(nameof(matrix1), "Матрица1 равна null");
+                throw new ArgumentNullException(nameof(matrix1), $"Матрица1 равна {matrix1}");
             }
 
             if (matrix2 is null)
             {
-                throw new ArgumentNullException(nameof(matrix2), "Матрица2 равна null");
+                throw new ArgumentNullException(nameof(matrix2), $"Матрица2 равна {matrix2}");
             }
 
             Matrix differenceMatrix = new(matrix1.mass);
@@ -401,12 +401,12 @@ namespace MatrixTask
         {
             if (matrix1 is null)
             {
-                throw new ArgumentNullException(nameof(matrix1), "Матрица1 равна null");
+                throw new ArgumentNullException(nameof(matrix1), $"Матрица1 равна {matrix1}");
             }
 
             if (matrix2 is null)
             {
-                throw new ArgumentNullException(nameof(matrix2), "Матрица2 равна null");
+                throw new ArgumentNullException(nameof(matrix2), $"Матрица2 равна {matrix2}");
             }
 
             if (matrix1.mass.GetLength(1) != matrix2.mass.GetLength(0))
