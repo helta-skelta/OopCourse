@@ -128,12 +128,12 @@ namespace ListTask
                 AddFirst(value);
             }
 
-            ListItem<T> firstElement = new(value)
+            ListItem<T> newElement = new(value)
             {
                 Next = this[index]
             };
 
-            this[index - 1].Next = firstElement;
+            this[index - 1].Next = newElement;
 
             ++count;
         }

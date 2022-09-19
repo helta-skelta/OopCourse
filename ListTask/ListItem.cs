@@ -23,9 +23,9 @@ namespace ListTask
             Next = next;
         }
 
-        public static bool Compare(T? x, T? y)
+        public static bool Compare(T? data1, T? data2)
         {
-            return EqualityComparer<T>.Default.Equals(x, y);
+            return EqualityComparer<T>.Default.Equals(data1, data2);
         }
     }
 }
