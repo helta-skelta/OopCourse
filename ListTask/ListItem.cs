@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Numerics;
-
+﻿
 namespace ListTask
 {
     internal class ListItem<T>
