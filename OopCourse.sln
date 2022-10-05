@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShapesTask", "ShapesTask\Sh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListTask", "ListTask\ListTask.csproj", "{91D0B552-E1C8-4CA8-A122-828F78C77157}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrayListTask", "ArrayListTask\ArrayListTask.csproj", "{D12747F7-E7FC-4063-BB88-F88A43FAB1B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArrayListTask", "ArrayListTask\ArrayListTask.csproj", "{D12747F7-E7FC-4063-BB88-F88A43FAB1B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashTableTask", "HashTableTask\HashTableTask.csproj", "{09947CED-E725-4CC3-931C-75BC4E24BBD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{D12747F7-E7FC-4063-BB88-F88A43FAB1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D12747F7-E7FC-4063-BB88-F88A43FAB1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D12747F7-E7FC-4063-BB88-F88A43FAB1B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09947CED-E725-4CC3-931C-75BC4E24BBD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09947CED-E725-4CC3-931C-75BC4E24BBD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09947CED-E725-4CC3-931C-75BC4E24BBD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09947CED-E725-4CC3-931C-75BC4E24BBD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
