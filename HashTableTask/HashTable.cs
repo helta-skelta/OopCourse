@@ -77,20 +77,23 @@ namespace HashTableTask
                 throw new NotSupportedException("Коллекция доступна только для чтения.");
             }
 
+            if (count == 0)
+            {
+                throw new InvalidOperationException("Коллекция пустая.");
+            }
+
             for (int i = 0, j = hashTable.Length - 1; i < j; ++i, --j)
             {
                 hashTable[i] = null!;
                 hashTable[j] = null!;
             }
-
-            count = 0;
         }
 
         public bool Contains(T item)
         {
-            foreach (T items in this)
+            foreach (T element in this)
             {
-                if (EqualityComparer<T>.Default.Equals(items, item))
+                if (Equals(element, item))
                 {
                     return true;
                 }
@@ -117,9 +120,9 @@ namespace HashTableTask
                     $"заданного значением параметра {arrayIndex}, до конца массива назначения {array}.");
             }
 
-            foreach (T items in this)
+            foreach (T item in this)
             {
-                array[arrayIndex] = items;
+                array[arrayIndex] = item;
 
                 ++arrayIndex;
             }
@@ -135,6 +138,11 @@ namespace HashTableTask
             if (item is null)
             {
                 throw new ArgumentNullException(nameof(item), $"Обьект {item} равен null.");
+            }
+
+            if (count == 0)
+            {
+                throw new InvalidOperationException("Коллекция пустая.");
             }
 
             Item<T> x = new(item);
@@ -162,18 +170,25 @@ namespace HashTableTask
 
         public IEnumerator<T> GetEnumerator()
         {
+            int count = this.count;
+
             for (int i = 0; i < hashTable.Length; ++i)
             {
+                if (count != this.count)
+                {
+                    throw new Exception("Коллекция изменилась.");
+                }
+
                 if (hashTable[i] is null)
                 {
                     continue;
                 }
 
-                IEnumerator<Item<T>> enumerator = hashTable[i].GetEnumerator();
+                IEnumerator<Item<T>> iterator = hashTable[i].GetEnumerator();
 
-                while (enumerator.MoveNext())
+                while (iterator.MoveNext())
                 {
-                    yield return enumerator.Current.Value!;
+                    yield return iterator.Current.Value!;
                 }
             }
         }
