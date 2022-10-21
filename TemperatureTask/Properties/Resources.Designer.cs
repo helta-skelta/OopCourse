@@ -59,5 +59,15 @@ namespace TemperatureTask.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap free_icon_forward_6998832 {
+            get {
+                object obj = ResourceManager.GetObject("free-icon-forward-6998832", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

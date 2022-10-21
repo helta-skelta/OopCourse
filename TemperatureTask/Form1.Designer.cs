@@ -53,7 +53,7 @@
             // 
             this.calculateButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.calculateButton.BackColor = System.Drawing.SystemColors.Window;
-            this.calculateButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("calculateButton.BackgroundImage")));
+            this.calculateButton.BackgroundImage = global::TemperatureTask.Properties.Resources.free_icon_forward_6998832;
             this.calculateButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.calculateButton.Font = new System.Drawing.Font("Verdana", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.calculateButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -115,8 +115,8 @@
             this.tableLayoutPanel1.Controls.Add(this.inputTemperatureComboBox, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.outputTemperatureComboBox, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.inputTemperatureValueTextBox, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.calculateButton, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.outputTemperatureValueLabel, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.calculateButton, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
