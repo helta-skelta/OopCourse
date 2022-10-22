@@ -59,7 +59,7 @@
             this.calculateButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.calculateButton.Location = new System.Drawing.Point(323, 80);
             this.calculateButton.Name = "calculateButton";
-            this.calculateButton.Size = new System.Drawing.Size(105, 63);
+            this.calculateButton.Size = new System.Drawing.Size(105, 50);
             this.calculateButton.TabIndex = 8;
             this.calculateButton.UseVisualStyleBackColor = false;
             this.calculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
