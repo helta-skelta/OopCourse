@@ -2,52 +2,38 @@ using TemperatureTask.Model;
 
 namespace TemperatureTask
 {
-    public partial class Form1 : Form
+    public partial class TemperaturesForm : Form
     {
-        public Form1()
+        private readonly ITemperatureConvertable convertTemperature;
+
+        public TemperaturesForm(ITemperatureConvertable converter)
         {
             InitializeComponent();
 
-            inputTemperatureValueTextBox.Text = "Введите значение.";
+            convertTemperature = converter;
+
+            inputTemperatureComboBox.SelectedIndex = 0;
+            outputTemperatureComboBox.SelectedIndex = 0;
         }
 
         private void CalculateButton_Click(object sender, EventArgs e)
         {
-            if (inputTemperatureComboBox.SelectedIndex == -1)
-            {
-                MessageBox.Show("Выберите из какой шкалы нужно перевести температуру.");
-
-                return;
-            }
-
-            if (outputTemperatureComboBox.SelectedIndex == -1)
-            {
-                MessageBox.Show("Выберите в какую шкалу нужно перевести температуру.");
-
-                return;
-            }
-
             try
             {
-                double temperature = Convert.ToDouble(inputTemperatureValueTextBox.Text);
+                double temperature = Convert.ToDouble(inputTemperatureTextBox.Text);
 
-                Func<double, double> convertType = Converter.GetConvertType(inputTemperatureComboBox.SelectedIndex, outputTemperatureComboBox.SelectedIndex);
-
-                outputTemperatureValueLabel.Text = convertType(temperature).ToString("0.00");
+                outputTemperatureValueLabel.Text = Task.FromResult(convertTemperature.GetTemperature
+                    (temperature, inputTemperatureComboBox.SelectedIndex, outputTemperatureComboBox.SelectedIndex))
+                    .Result.ToString("0.00");
             }
             catch (FormatException)
             {
-                inputTemperatureValueTextBox.Text = null;
+                inputTemperatureTextBox.Text = null;
 
                 MessageBox.Show("Введите числовое значение.");
 
                 return;
             }
-        }
-
-        private void inputTemperatureValueTextBox_MouseClick(object sender, MouseEventArgs e)
-        {
-            inputTemperatureValueTextBox.Text = null;
         }
     }
 }

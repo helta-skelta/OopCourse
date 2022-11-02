@@ -1,51 +1,25 @@
 ﻿namespace TemperatureTask.Model
 {
-    internal static class Converter
+    internal class TemperatureConverter : ITemperatureConvertable
     {
-        internal static Func<double, double> GetConvertType(int inputComboBoxValueIndex, int outputComboBoxValueIndex)
+        private static double ConvertToCelsius(double value, int index)
         {
-            Func<double, double> op = (inputComboBoxValueIndex, outputComboBoxValueIndex) switch
+            return (index) switch
             {
-                (0, 1) => GetCelsiusToFahrenheit,
-                (0, 2) => GetCelsiusToKelvin,
-                (1, 0) => GetFahrenheitToCelsius,
-                (1, 2) => GetFahrenheitToKelvin,
-                (2, 0) => GetKelvinToCelsius,
-                (2, 1) => GetKelvinToFahrenheit,
-                _ => x => x
+                (1) => (value - 32) / 1.8,
+                (2) => value - 273.15,
+                _ => value
             };
-
-            return op;
         }
 
-        private static double GetCelsiusToFahrenheit(double temperatureValue)
+        public double GetTemperature(double value, int inputValueIndex, int outputValueIndex)
         {
-            return temperatureValue * 1.8 + 32;
-        }
-
-        private static double GetCelsiusToKelvin(double temperatureValue)
-        {
-            return temperatureValue + 273.15;
-        }
-
-        private static double GetFahrenheitToCelsius(double temperatureValue)
-        {
-            return (temperatureValue - 32) / 1.8;
-        }
-
-        private static double GetFahrenheitToKelvin(double temperatureValue)
-        {
-            return (temperatureValue + 459.67) * 5 / 9;
-        }
-
-        private static double GetKelvinToCelsius(double temperatureValue)
-        {
-            return temperatureValue - 273.15;
-        }
-
-        private static double GetKelvinToFahrenheit(double temperatureValue)
-        {
-            return temperatureValue / (5 / 9) - 459.67;
+            return (outputValueIndex) switch
+            {
+                (1) => ConvertToCelsius(value, inputValueIndex) * 1.8 + 32,
+                (2) => ConvertToCelsius(value, inputValueIndex) + 273.15,
+                _ => ConvertToCelsius(value, inputValueIndex)
+            };
         }
     }
 }
